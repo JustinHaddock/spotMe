@@ -1,6 +1,6 @@
 var spotMe = angular.module('spotMe', [
 	'ui.router',
-	'userController'
+	'userControllers'
 ])
 
 spotMe.config(function($stateProvider, $urlRouterProvider){
@@ -14,7 +14,7 @@ spotMe.config(function($stateProvider, $urlRouterProvider){
     })
     .state('create', {
       url: "/createAcount",
-      controller: "createUserController as cont",
+      controller: "createUserController as create",
       templateUrl: "partials/createUser.html"
     })
-})
+});
