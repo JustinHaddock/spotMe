@@ -1,11 +1,14 @@
-<form class="login">
-  <h1 class="title"> spot.me </h1>
-  <div class="input">
-    <input type="email" placeholder="email" required />
-  </div>
-  <div class="input">
-    <input type="password" placeholder="password" required />
-  </div>
-  <button style="float:right" ng-click="login.create()">create account</button>
-  <button style="float:left" ng-click="login.login()">login</button>
-</form>
+<div class="login-container">
+  <form class="login">
+    <h1 class="title"> spot.me </h1>
+    <div class="input">
+      <input type="email" placeholder="email" required />
+    </div>
+    <div class="input">
+      <input type="password" placeholder="password" required />
+    </div>
+    <!-- <button style="float:right" ng-click="login.create()">create account</button> -->
+    <button ng-click="login.login()">sign in</button>
+    <span id="forgot-pass">Forgot password?</span>
+  </form>
+</div>
