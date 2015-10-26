@@ -2,10 +2,30 @@ var userControllers = angular.module('userControllers', ['ngDialog']);
 var ref = new Firebase("https://spotmee.firebaseio.com");
 
 
-userControllers.controller("userManagement", ['$scope', 'ngDialog', '$location', function($scope, ngDialog, $location) {
+userControllers.controller("userManagement", ['$scope', 'ngDialog', '$location', 'profileFactory', '$state', function($scope, ngDialog, $location, profileFactory, $state) {
     this.email = "";
     this.pass = "";
-    this.emessage = ""  ;
+    this.emessage = ""
+    ;
+    this.login = function() {
+      console.log(this.email);
+      console.log(this.pass);
+        ref.authWithPassword({
+            email: this.email,
+            password: this.pass,
+            remember: "default"
+        }, function(error, authData) {
+            if (error) {
+                console.log("Login Failed!", error);
+                this.emessage = error.message;
+                console.log(this.emessage);
+                $scope.$apply();
+            } else {
+                profileFactory.uid = authData.uid;
+                $state.go('profile');
+            }
+        }.bind(this));
+    }
 
     this.create = function(){
         ngDialog.openConfirm({
@@ -18,7 +38,7 @@ userControllers.controller("userManagement", ['$scope', 'ngDialog', '$location',
     return this;
 }]);
 
-userControllers.controller("createController", ['$scope', function($scope){
+userControllers.controller("createController", ['$scope', '$state', 'profileFactory', function($scope, $state, profileFactory){
     var create = this;
     create.email = "";
     create.pass = "";
@@ -33,7 +53,7 @@ userControllers.controller("createController", ['$scope', function($scope){
       }
       var lastOfEmail;
       if (passes && create.email.length < 7){
-        create.emessage = "email not long enough" ;
+        create.emessage = "email not long enough to be real" ;
         passes = false;
       }
       if (passes){
@@ -44,7 +64,6 @@ userControllers.controller("createController", ['$scope', function($scope){
         }
       }
       if (passes){
-        console.log('passed!');
         create.addUser(create.email, create.pass);
       }
     }
@@ -58,12 +77,12 @@ userControllers.controller("createController", ['$scope', function($scope){
                 create.emessage = "Entered email is invalid";
                 $scope.$apply();
             } else {
-                console.log("Success!");
-                var uid = userData.uid;
-                console.log(uid);
                 $scope.closeThisDialog(0);
+                var uid = userData.uid;
+                profileFactory.uid = userData.uid;
+                $state.go('profile');
             }
         });
-    }
+      };
     return create;
-}])
+}]);

@@ -1,10 +1,14 @@
 <form class="login popUp">
-  <p>Enter basic information</p>
+  <p>Create Account</p>
   <input type="email" ng-model="create.email" placeholder="email" required /> </br>
   <input type="password" ng-model="create.pass" placeholder="password" required /> </br>
   <input type="password" ng-model="create.pass2" placeholder="password" required /> </br>
   <button class="login login-button" ng-click="create.checkFields()">submit</button>
 </br>
+<div ng-show="create.emessage != ''">
+  <p id="error-message">{{create.emessage}}</p>
+</br></br>
+</div>
 </form>
   <!-- <select>
     <option value="bodybuilding">Bodybuilding</option>
