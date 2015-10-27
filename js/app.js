@@ -3,8 +3,12 @@ var spotMe = angular.module('spotMe', [
 	'userControllers',
 	'profileControllers',
 	'profileFactory',
-	'directives'
+	'directives',
+	'firebase'
 ])
+
+var ref = new Firebase("https://spotmee.firebaseio.com");
+
 
 spotMe.config(function($stateProvider, $urlRouterProvider){
 
@@ -18,6 +22,11 @@ spotMe.config(function($stateProvider, $urlRouterProvider){
     .state('profile', {
       url: "/profile",
       controller: "profileController as profile",
-      templateUrl: "partials/profile.html"
+      templateUrl: "partials/profile.html",
+			resolve: {
+				profileInfo:  function($firebaseArray){
+					 return $firebaseArray(ref);
+				},
+			}
     })
 });

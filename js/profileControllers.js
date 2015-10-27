@@ -1,19 +1,11 @@
-var profileControllers = angular.module('profileControllers', ['ngDialog']);
+var profileControllers = angular.module('profileControllers', ['ngDialog', 'firebase']);
 var ref = new Firebase("https://spotmee.firebaseio.com");
 
 
-profileControllers.controller("profileController", ['$scope', 'ngDialog', '$location', function($scope, ngDialog, $location) {
-    this.email = "";
-    this.pass = "";
-    this.emessage = ""  ;
-
-    this.create = function(){
-        ngDialog.openConfirm({
-            className: 'ngdialog-theme-default',
-            template: 'partials/createUser.html',
-            controller: "createController as create",
-            scope: $scope
-        })
-    }
-    return this;
+profileControllers.controller("profileController", ['$scope', '$state', 'profileInfo', 'profileFactory', function($scope, $state, profileInfo, profileFactory) {
+  if (profileFactory.uid == null){
+    $state.go('login');
+  }
+  console.log(profileInfo);
+  console.log(profileFactory.uid);
 }]);

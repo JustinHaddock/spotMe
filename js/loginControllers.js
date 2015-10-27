@@ -3,86 +3,98 @@ var ref = new Firebase("https://spotmee.firebaseio.com");
 
 
 userControllers.controller("userManagement", ['$scope', 'ngDialog', '$location', 'profileFactory', '$state', function($scope, ngDialog, $location, profileFactory, $state) {
-    this.email = "";
-    this.pass = "";
-    this.emessage = ""
-    ;
-    this.login = function() {
-      console.log(this.email);
-      console.log(this.pass);
-        ref.authWithPassword({
-            email: this.email,
-            password: this.pass,
-            remember: "default"
-        }, function(error, authData) {
-            if (error) {
-                console.log("Login Failed!", error);
-                this.emessage = error.message;
-                console.log(this.emessage);
-                $scope.$apply();
-            } else {
-                profileFactory.uid = authData.uid;
-                $state.go('profile');
-            }
-        }.bind(this));
-    }
+  this.email = "";
+  this.pass = "";
+  this.emessage = "";
 
-    this.create = function(){
-        ngDialog.openConfirm({
-            className: 'ngdialog-theme-default',
-            template: 'partials/createUser.html',
-            controller: "createController as create",
-            scope: $scope
-        })
+  ref.onAuth(function(authData) {
+    if (authData) {
+      profileFactory.uid = authData.uid;
+      localStorage.setItem('uid', authData.uid)
+
+      if ($location.path() == '/home') {
+        $state.go('profile');
+      }
+    } else {
+      profileFactory.uid = null;
+      $state.go('login');
     }
-    return this;
+  });
+
+  this.login = function() {
+    ref.authWithPassword({
+      email: this.email,
+      password: this.pass,
+      remember: "default"
+    }, function(error, authData) {
+      if (error) {
+        console.log("Login Failed!", error);
+        this.emessage = error.message;
+        console.log(this.emessage);
+        $scope.$apply();
+      } else {
+        profileFactory.uid = authData.uid;
+        $state.go('profile');
+      }
+    }.bind(this));
+  }
+
+  this.create = function() {
+    ngDialog.openConfirm({
+      className: 'ngdialog-theme-default',
+      template: 'partials/createUser.html',
+      controller: "createController as create",
+      scope: $scope
+    })
+  }
+  return this;
 }]);
 
-userControllers.controller("createController", ['$scope', '$state', 'profileFactory', function($scope, $state, profileFactory){
-    var create = this;
-    create.email = "";
-    create.pass = "";
-    create.pass2 = "";
-    create.emessage = "";
+userControllers.controller("createController", ['$scope', '$state', 'profileFactory', function($scope, $state, profileFactory) {
+  var create = this;
+  create.email = "";
+  create.pass = "";
+  create.pass2 = "";
+  create.emessage = "";
 
-    create.checkFields = function(){
-      var passes = true;
-      if (create.pass != create.pass2){
-        create.emessage = "passwords must match";
+  create.checkFields = function() {
+    var passes = true;
+    if (create.pass != create.pass2) {
+      create.emessage = "passwords must match";
+      passes = false;
+    }
+    var lastOfEmail;
+    if (passes && create.email.length < 7) {
+      create.emessage = "email not long enough to be real";
+      passes = false;
+    }
+    if (passes) {
+      lastOfEmail = create.email.substr(create.email.length - 7)
+      if (passes && lastOfEmail != "rit.edu") {
+        create.emessage = "please use RIT email";
         passes = false;
-      }
-      var lastOfEmail;
-      if (passes && create.email.length < 7){
-        create.emessage = "email not long enough to be real" ;
-        passes = false;
-      }
-      if (passes){
-        lastOfEmail = create.email.substr(create.email.length - 7)
-        if (passes && lastOfEmail != "rit.edu"){
-          create.emessage = "please use RIT email";
-          passes = false;
-        }
-      }
-      if (passes){
-        create.addUser(create.email, create.pass);
       }
     }
+    if (passes) {
+      create.addUser(create.email, create.pass);
+    }
+  }
 
-    create.addUser = function(em, pass) {
-        ref.createUser({
-            email: em,
-            password: pass
-        }, function(error, userData) {
-            if (error) {
-                create.emessage = "Entered email is invalid";
-                $scope.$apply();
-            } else {
-                $scope.closeThisDialog(0);
-                var uid = userData.uid;
-                profileFactory.uid = userData.uid;
-                $state.go('profile');
-            }
-        });
-      };
-    return create;
+  create.addUser = function(em, pass) {
+    ref.createUser({
+      email: em,
+      password: pass
+    }, function(error, userData) {
+      if (error) {
+        create.emessage = "Entered email is invalid";
+        $scope.$apply();
+      } else {
+        $scope.closeThisDialog(0);
+        var uid = userData.uid;
+        profileFactory.uid = userData.uid;
+        $state.go('profile');
+      }
+    });
+  };
+  return create;
 }]);
