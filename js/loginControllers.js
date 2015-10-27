@@ -9,10 +9,10 @@ userControllers.controller("userManagement", ['$scope', 'ngDialog', '$location',
 
   ref.onAuth(function(authData) {
     if (authData) {
+      console.log(authData);
       profileFactory.uid = authData.uid;
       localStorage.setItem('uid', authData.uid)
-
-      if ($location.path() == '/home') {
+      if ($location.path() == '/login') {
         $state.go('profile');
       }
     } else {
@@ -33,8 +33,11 @@ userControllers.controller("userManagement", ['$scope', 'ngDialog', '$location',
         console.log(this.emessage);
         $scope.$apply();
       } else {
+    console.log("logging in");
         profileFactory.uid = authData.uid;
+        console.log(profileFactory);
         $state.go('profile');
+        console.log($state.go('profile'));
       }
     }.bind(this));
   }
@@ -92,6 +95,7 @@ userControllers.controller("createController", ['$scope', '$state', 'profileFact
         $scope.closeThisDialog(0);
         var uid = userData.uid;
         profileFactory.uid = userData.uid;
+        ref.child('members').child(userData.uid).set({name:"newUser"})
         $state.go('profile');
       }
     });

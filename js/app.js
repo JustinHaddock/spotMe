@@ -22,11 +22,6 @@ spotMe.config(function($stateProvider, $urlRouterProvider){
     .state('profile', {
       url: "/profile",
       controller: "profileController as profile",
-      templateUrl: "partials/profile.html",
-			resolve: {
-				profileInfo:  function($firebaseArray){
-					 return $firebaseArray(ref);
-				},
-			}
+      templateUrl: "partials/profile.html"
     })
 });

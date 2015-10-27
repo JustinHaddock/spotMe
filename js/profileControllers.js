@@ -2,10 +2,19 @@ var profileControllers = angular.module('profileControllers', ['ngDialog', 'fire
 var ref = new Firebase("https://spotmee.firebaseio.com");
 
 
-profileControllers.controller("profileController", ['$scope', '$state', 'profileInfo', 'profileFactory', function($scope, $state, profileInfo, profileFactory) {
+profileControllers.controller("profileController", ['$scope', '$state', 'profileFactory', function($scope, $state, profileFactory) {
+  var profC = this;
+
   if (profileFactory.uid == null){
     $state.go('login');
   }
-  console.log(profileInfo);
-  console.log(profileFactory.uid);
+
+
+  profileFactory.find(profileFactory.uid).then(function(data){
+    var profNum = data.$indexFor(profileFactory.uid);
+    profC.profileInfo = data[profNum];
+
+  })
+
+  return profC;
 }]);

@@ -1,3 +1,19 @@
-<nav></nav>
+<!-- <nav></nav> -->
 
-<button>Add Profile Information</button>
+<div class="profile-info-container">
+  name:<input type="text" ng-model="profile.profileInfo.name"></br>
+  age:<input type="text" ng-model="profile.profileInfo.age"></br>
+  sex:
+  <select>
+      <option value="bodybuilding">Female</option>
+      <option value="powerlifting">Male</option>
+    </select></br>
+  lifting type:
+  <select>
+      <option value="bodybuilding">Bodybuilding</option>
+      <option value="powerlifting">Powerlifting</option>
+      <option value="xfit">Crossfit</option>
+      <option value="sport">Sport</option>
+      <option value="oly">Olympic Lifting</option>
+    </select>
+</div>
