@@ -9,8 +9,8 @@ userControllers.controller("userManagement", ['$scope', 'ngDialog', '$location',
 
   ref.onAuth(function(authData) {
     if (authData) {
-      console.log(authData);
       profileFactory.uid = authData.uid;
+      profileFactory.init(); 
       localStorage.setItem('uid', authData.uid)
       if ($location.path() == '/login') {
         $state.go('profile');

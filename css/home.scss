@@ -58,7 +58,7 @@ body{
     width: 100%;
     color: white;
     border-radius: 10px;
-    background-color: $button-color;
+    background-color: $baby-blue;
     font-family: Open Sans;
     font-weight: bold;
     float: right;
@@ -67,7 +67,7 @@ body{
     text-decoration: none;
   }
   &.new-button {
-    color: $button-color;
+    color: $baby-blue;
     width: 35%;
     border-radius: 10px;
     background-color: transparent;
@@ -75,7 +75,7 @@ body{
     font-weight: bold;
     float: right;
     padding: 10px 20px 10px 20px;
-    border: solid $button-color 2px;
+    border: solid $baby-blue 2px;
     text-decoration: none;
   }
   &.popUp{
@@ -98,7 +98,7 @@ body{
   margin-bottom: 5em;
   display: block;
   font-size: .7em;
-  color: $button-color;
+  color: $baby-blue;
   font-family: Open Sans;
 }
 
