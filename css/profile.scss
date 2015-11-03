@@ -1,23 +1,7 @@
 @import 'colors';
 
-.profile-info-container {
-  padding: 1em;
-  margin: 10em auto;
-  background-color: #636363;
-  display: table;
-  button {
-    color: white;
-    border-radius: 10px;
-    background-color: $baby-blue;
-    font-family: Open Sans;
-    font-weight: bold;
-    float: right;
-    padding: 10px 20px 10px 20px;
-    border: solid transparent;
-    text-decoration: none;
-  }
-}
-.text-edit {
+
+.text-name-edit {
   transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
   font-size: 1em;
   background: #f5f5f5;
@@ -32,16 +16,39 @@
   clear: both;
   font-family: Open Sans;
 }
-.text-noEdit {
-  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+.text-name-noEdit {
+    color: #41a3db;
+    text-align: center;
+    transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+    font-size: 1em;
+    border: none;
+    font-family: Open Sans;
+}
+.text-age-edit {
+  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
   font-size: 1em;
-  background: transparent;
+  background: #f5f5f5;
+  font-family: Open Sans;
+  font-size: 1em;
+  border-radius: 10px;
   border: none;
-  padding: 5px;
-  color: black;
+  padding: 13px 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: inset 0 2px 3px rgba( 0,0,0,0.1 );
+  clear: both;
   font-family: Open Sans;
 }
-.select-edit {
+.text-age-noEdit {
+    color: $baby-blue;
+    text-align: center;
+    transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+    font-size: 1em;
+    border: none;
+    font-family: Open Sans;
+}
+.select-lift-edit {
+  color: $baby-blue;
   font-family: Open Sans;
   transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
   font-size: 1em;
@@ -53,7 +60,11 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.select-noEdit {
+.select-lift-noEdit {
+  color: $baby-blue;
+  font-style: italic;
+  color: grey;
+  font-size: 100;
   font-family: Open Sans;
   transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
   -webkit-appearance: none;
@@ -65,4 +76,99 @@
   background-color: transparent;
   border: none;
   color: black;
+}
+.select-gender-edit {
+  color: $baby-blue;
+  font-family: Open Sans;
+  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  font-size: 1em;
+  padding: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.select-gender-noEdit {
+  font-family: Open Sans;
+  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  color: $baby-blue;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+  font-size: 1em;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  color: black;
+}
+.selection-container{
+  display: table;
+  margin: 0 auto;
+}
+
+.profile-container{
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+.profile-left{
+  display: table-cell;
+  height: 100%;
+	width: 20%;
+  color: $baby-blue;
+	background-color: white;
+  p{
+    margin: 0;
+  }
+}
+.profile-right{
+  display: table-cell;
+  height: 100%;
+	background-color: #636363;
+	text-align:left;
+}
+
+.profile-nav{
+  color: $baby-blue;
+  text-align: center;
+
+  h3{
+    margin: 0;
+    margin-top: -1px;
+    &:before{
+      content: '';
+      width: 100%;
+      height: 1px;
+      background-color: #41a3db;
+      display: block;
+      margin-bottom: 1em;
+    }
+    &:after{
+      content: '';
+      width: 100%;
+      height: 1px;
+      background-color: #41a3db;
+      display: block;
+      margin-top: 1em;
+    }
+  }
+}
+
+.message{
+  color: #41a3db;
+  border-radius: 4px;
+  background-color: transparent;
+  font-family: Open Sans;
+  font-weight: bold;
+  float: right;
+  padding: 5px 20px 5px 20px;
+  border: solid #41a3db 2px;
+  text-decoration: none;
+  &:before{
+    content: url('assets/images/message.svg');
+
+  }
 }

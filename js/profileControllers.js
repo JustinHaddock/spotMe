@@ -18,39 +18,51 @@ profileControllers.controller("profileController", ['$scope', '$state', 'profile
   }
   // -------------- ON TO ACTUAL METHODS ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   profC.classes = {
-    textInput: "text-noEdit",
-    selectInput: "select-noEdit",
+    textInput: {
+      name: "text-name-noEdit",
+      age: "text-age-noEdit"
+    },
+    selectInput:{
+      lift: "select-lift-noEdit",
+      gender: "select-gender-noEdit"
+    },
     readonly: true
   };
 
   profC.save = function() {
-    console.log("GARBAGE");
-    var f = document.getElementById('file').files[0],
-      r = new FileReader();
-    console.log(r);
-    r.onloadend = function(e) {
-        var data = e.target.result
-        console.log(data);
-        console.log(e);
-        console.log(r);
-        //send you binary data via $http or $resource or do anything else with it
-      }
-      r.readAsBinaryString(f);
-
+    var members = $firebaseArray(ref.child('members'));
+    members.$loaded().then(function() {
+      var index = members.$indexFor(profileFactory.uid);
+      members[index] = profC.profileInfo;
+      members.$save(index);
+      profC.editInfo();
+    })
   }
 
   profC.editInfo = function() {
     console.log(profC.classes.textInput);
-    if (profC.classes.textInput == "text-edit") {
+    if (profC.classes.textInput.name == "text-name-edit") {
       profC.classes = {
-        textInput: "text-noEdit",
-        selectInput: "select-noEdit",
+        textInput: {
+          name: "text-name-noEdit",
+          age: "text-age-noEdit"
+        },
+        selectInput:{
+          lift: "select-lift-noEdit",
+          gender: "select-gender-noEdit"
+        },
         readonly: true
       }
     } else {
       profC.classes = {
-        textInput: "text-edit",
-        selectInput: "select-edit",
+        textInput: {
+          name: "text-name-edit",
+          age: "text-age-edit"
+        },
+        selectInput:{
+          lift: "select-lift-edit",
+          gender: "select-gender-edit"
+        },
         readonly: false
       }
     }

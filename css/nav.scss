@@ -1,11 +1,10 @@
 @import 'colors';
 .nav {
-  position: absolute;
+  background-color: $baby-blue;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  background-color: $baby-blue;
   h1 {
     margin-top: 0;
     margin-bottom: 0.25em;
@@ -25,6 +24,7 @@
     font-family: Jura;
     font-size: 1.2em;
     color: white;
+    float: right;
     line-height: 40px;
     height: 40px;
     border-bottom: 1px solid #888;
@@ -60,7 +60,7 @@
 }
 .right-nav-container {
   display: inline-block;
-  width: 50%;
+  width: 75%;
   float: right;
 }
 .nav-profile-dropdown {

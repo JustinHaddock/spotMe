@@ -5,12 +5,12 @@
         <li class="title">spot.me</li>
       </div>
       <div class="right-nav-container">
-        <li class="search" ui-sref-active="active"><a ui-sref="search">Search</a></li>
-        <li class="matches" ui-sref-active="active"><a ui-sref="matches">Matches</a></li>
+        <!-- <div class="nav-profile-dropdown"> -->
+        <li class="profile" ui-sref-active="active"><a ui-sref="profile">{{nav.profileInfo.name}}</a></li>
+        <!-- </div> -->
         <li class="messages" ui-sref-active="active"><a ui-sref="messages">Messages</a></li>
-        <div class="nav-profile-dropdown">
-          <li class="profile" ui-sref-active="active"><a ui-sref="profile">{{nav.profileInfo.name}}</a></li>
-        </div>
+        <li class="matches" ui-sref-active="active"><a ui-sref="matches">Matches</a></li>
+        <li class="search" ui-sref-active="active"><a ui-sref="search">Search</a></li>
       </div>
     </ul>
   </div>

@@ -3,7 +3,6 @@ var ref = new Firebase("https://spotmee.firebaseio.com");
 
 profileFactory.factory("profileFactory", ['$q', '$firebaseArray', function($q, $firebaseArray) {
   var proff = {};
-
   proff.uid = null;
   proff.users = [];
   proff.thisUser = {};
@@ -12,7 +11,6 @@ profileFactory.factory("profileFactory", ['$q', '$firebaseArray', function($q, $
   proff.getUsers = function() {
     var deferred = $q.defer();
     var allData = $firebaseArray(ref.child('members'))
-
     allData.$loaded().then(function() {
         deferred.resolve(allData)
       })
@@ -43,6 +41,6 @@ profileFactory.factory("profileFactory", ['$q', '$firebaseArray', function($q, $
       proff.thisUser = data[index];
     })
   }
-  return proff
-
+  
+  return proff;
 }]);

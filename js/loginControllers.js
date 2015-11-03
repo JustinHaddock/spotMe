@@ -33,7 +33,7 @@ userControllers.controller("userManagement", ['$scope', 'ngDialog', '$location',
         console.log(this.emessage);
         $scope.$apply();
       } else {
-    console.log("logging in");
+        console.log("logging in");
         profileFactory.uid = authData.uid;
         console.log(profileFactory);
         $state.go('profile');
@@ -95,7 +95,9 @@ userControllers.controller("createController", ['$scope', '$state', 'profileFact
         $scope.closeThisDialog(0);
         var uid = userData.uid;
         profileFactory.uid = userData.uid;
-        ref.child('members').child(userData.uid).set({name:"newUser"})
+        ref.child('members').child(userData.uid).set({
+          name: "newUser"
+        })
         $state.go('profile');
       }
     });

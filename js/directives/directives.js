@@ -7,12 +7,11 @@ directives.directive('nav', ['profileFactory', function(profileFactory) {
     var vm = this;
     vm.profileInfo
 
-    if (profileFactory.hasUsersReady()){
+    if (profileFactory.hasUsersReady()) {
       var index = profileFactory.users.$indexFor(profileFactory.uid);
       $timeout(vm.profileInfo = profileFactory.users[index]);
       vm.profileInfo.name = vm.getFirstName(vm.profileInfo.name)
-    }
-    else{
+    } else {
       profileFactory.getUsers().then(function(data) {
         var index = data.$indexFor(profileFactory.uid);
         $timeout(vm.profileInfo = data[index]);
@@ -21,8 +20,8 @@ directives.directive('nav', ['profileFactory', function(profileFactory) {
     }
     // if (vm.profileInfo.name = )
 
-    vm.getFirstName = function(name){
-      if (name.indexOf(' ') != -1){
+    vm.getFirstName = function(name) {
+      if (name.indexOf(' ') != -1) {
         var split = name.split(" ");
         return split[0]
       }
