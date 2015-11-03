@@ -28,6 +28,7 @@
     "gulp-sass": "^2.0.4",
     "mocha": "^2.3.3",
     "ng-dialog": "^0.5.5",
+    "ng-file-upload": "^9.1.2",
     "streamqueue": "^1.1.1"
   }
 }

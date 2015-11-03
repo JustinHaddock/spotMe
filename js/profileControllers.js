@@ -1,5 +1,7 @@
 var profileControllers = angular.module('profileControllers', ['ngDialog', 'firebase']);
 var ref = new Firebase("https://spotmee.firebaseio.com");
+$.cloudinary.config({ cloud_name: 'spot-me', api_key: '622124564534639'})
+
 
 
 profileControllers.controller("profileController", ['$scope', '$state', 'profileFactory', '$firebaseArray', function($scope, $state, profileFactory, $firebaseArray) {
@@ -22,7 +24,7 @@ profileControllers.controller("profileController", ['$scope', '$state', 'profile
       name: "text-name-noEdit",
       age: "text-age-noEdit"
     },
-    selectInput:{
+    selectInput: {
       lift: "select-lift-noEdit",
       gender: "select-gender-noEdit"
     },
@@ -30,6 +32,8 @@ profileControllers.controller("profileController", ['$scope', '$state', 'profile
   };
 
   profC.save = function() {
+     var url = $.cloudinary.url('spot-me', {format: 'json', type: 'list'});
+     console.log(url);
     var members = $firebaseArray(ref.child('members'));
     members.$loaded().then(function() {
       var index = members.$indexFor(profileFactory.uid);
@@ -47,7 +51,7 @@ profileControllers.controller("profileController", ['$scope', '$state', 'profile
           name: "text-name-noEdit",
           age: "text-age-noEdit"
         },
-        selectInput:{
+        selectInput: {
           lift: "select-lift-noEdit",
           gender: "select-gender-noEdit"
         },
@@ -59,13 +63,38 @@ profileControllers.controller("profileController", ['$scope', '$state', 'profile
           name: "text-name-edit",
           age: "text-age-edit"
         },
-        selectInput:{
+        selectInput: {
           lift: "select-lift-edit",
           gender: "select-gender-edit"
         },
         readonly: false
       }
     }
+  };
+
+
+  profC.uploadFile = function(file) {
+    this.file = file;
+    if (!this.file) return;
+    angular.forEach(file, function(file) {
+      if (file && !file.$error) {
+        file.upload = $upload.upload({
+          url: "https://api.cloudinary.com/v1_1/spot-me/upload",
+          fields: {
+            upload_preset: $.cloudinary.config().upload_preset,
+            context: 'photo=' + this.title
+          },
+          file: file
+        }).progress(function(e) {
+          file.progress = Math.round((e.loaded * 100.0) / e.total);
+          file.status = "Uploading... " + file.progress + "%";
+        }).success(function(data, status, headers, config) {
+
+        }).error(function(data, status, headers, config) {
+          file.result = data;
+        });
+      }
+    });
   };
 
   return profC;
