@@ -1,39 +1,41 @@
-<nav></nav>
-
 <div class="profile-container">
-  <div class="profile-left">
-    <button ng-show="profile.classes.readonly" ng-click="profile.editInfo()">edit</button>
-    <button ng-click="profile.save()" ng-show="!profile.classes.readonly">Save</button>
-    <p>
-      <input type="text" ng-class="profile.classes.textInput.name" ng-readonly="profile.classes.readonly" ng-model="profile.profileInfo.name" style="text-align: right;">,
-      <input type="text" ng-class="profile.classes.textInput.age" ng-readonly="profile.classes.readonly" ng-model="profile.profileInfo.age" style="width: 2em;">
-    </p>
-    <div class="selection-container">
-      <select ng-model="profile.profileInfo.gender" ng-disabled="profile.classes.readonly" ng-class="profile.classes.selectInput.gender" style="font-family: monospace; font-size: 1.5em;">
-        <option value="female">♀</option>
-        <option value="male">♂</option>
-      </select>
-      <select ng-model="profile.profileInfo.lifting" ng-disabled="profile.classes.readonly" ng-class="profile.classes.selectInput.lift">
-        <option value="bodybuilding">Bodybuilder</option>
-        <option value="powerlifting">Powerlifter</option>
-        <option value="xfit">Crossfitter</option>
-        <option value="sport">Sport</option>
-        <option value="run">Runner</option>
-        <option value="oly">Olympic Lifter</option>
-        <option value="newbie">Beginner</option>
-        <option value="weight">Weight Loss</option>
-      </select>
-    </br>
-    <button class="message"> <img src="assets/images/message.png" style="height:15px;width:15px">message</button>
-    </div>
-    <div class="profile-nav">
-      <h3>about me</h3>
-      <h3>maxes</h3>
-      <h3>schedule</h3>
-      <h3>instagram</h3>
+
+  <div style="display: table-row;">
+    <div style="display: table-cell;">
+      <nav></nav>
     </div>
   </div>
-  <div class="profile-right">
-
+  <div style="display: table-row;">
+    <div style="display: table-cell;height: 100%">
+      <div style="display: table;height: 100%; width:100%;">
+        <div class="profile-left">
+          <button ng-click="profile.editInfo()">edit</button>
+          <div class="profile-info-main">
+            <img class="profile-pic" src="assets/images/me.jpg">
+            <p>
+              {{profile.profileInfo.name}}, {{profile.profileInfo.age}}
+            </p>
+            <div class="selection-container">
+              <span style="font-family: monospace; font-size: 2em;">
+                {{profile.profileInfo.gender}}
+              </span>
+              {{profile.profileInfo.lifting}}
+              </br>
+              <button class="message">
+                <img src="assets/images/message.png" style="height:15px;width:15px">message</button>
+            </div>
+            </br>
+          </div>
+          <div class="profile-nav">
+            <h3>about me</h3>
+            <h3>maxes</h3>
+            <h3>schedule</h3>
+            <h3>instagram</h3>
+          </div>
+        </div>
+        <div class="profile-right">
+        </div>
+      </div>
+    </div>
   </div>
 </div>

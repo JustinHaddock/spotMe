@@ -24,7 +24,6 @@ profileFactory.factory("profileFactory", ['$q', '$firebaseArray', function($q, $
     if (proff.users.length == 0) {
       return false;
     }
-    console.log("groovy");
     return true;
   }
 
@@ -41,6 +40,6 @@ profileFactory.factory("profileFactory", ['$q', '$firebaseArray', function($q, $
       proff.thisUser = data[index];
     })
   }
-  
+
   return proff;
 }]);

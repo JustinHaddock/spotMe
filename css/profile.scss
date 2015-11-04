@@ -1,7 +1,9 @@
 @import 'colors';
 
-
-.text-name-edit {
+.profile-info-main{
+  text-align: center;
+}
+.edit {
   color: $baby-blue;
   transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
   font-size: 1em;
@@ -16,92 +18,6 @@
   box-shadow: inset 0 2px 3px rgba( 0,0,0,0.1 );
   clear: both;
   font-family: Open Sans;
-}
-.text-name-noEdit {
-    color: $baby-blue;
-    text-align: center;
-    transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
-    font-size: 1em;
-    border: none;
-    font-family: Open Sans;
-}
-.text-age-edit {
-  color: $baby-blue;
-  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  font-size: 1em;
-  background: #f5f5f5;
-  font-family: Open Sans;
-  font-size: 1em;
-  border-radius: 10px;
-  border: none;
-  padding: 13px 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  box-shadow: inset 0 2px 3px rgba( 0,0,0,0.1 );
-  clear: both;
-  font-family: Open Sans;
-}
-.text-age-noEdit {
-    color: $baby-blue;
-    text-align: center;
-    transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
-    font-size: 1em;
-    border: none;
-    font-family: Open Sans;
-}
-.select-lift-edit {
-  color: $baby-blue;
-  font-family: Open Sans;
-  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  font-size: 1em;
-  padding: 5px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  text-indent: 1px;
-  text-overflow: '';
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.select-lift-noEdit {
-  color: $baby-blue;
-  font-style: italic;
-  font-size: 100;
-  font-family: Open Sans;
-  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  text-indent: 1px;
-  text-overflow: '';
-  font-size: 1em;
-  padding: 5px;
-  background-color: transparent;
-  border: none;
-}
-.select-gender-edit {
-  color: $baby-blue;
-  font-family: Open Sans;
-  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  font-size: 1em;
-  padding: 5px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  text-indent: 1px;
-  text-overflow: '';
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.select-gender-noEdit {
-  font-family: Open Sans;
-  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  color: $baby-blue;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  text-indent: 1px;
-  text-overflow: '';
-  font-size: 1em;
-  padding: 5px;
-  background-color: transparent;
-  border: none;
 }
 .selection-container{
   display: table;
@@ -155,10 +71,15 @@
     }
   }
 }
+.profile-pic{
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+}
 
 .message{
   color: #41a3db;
-  margin: 2em;
+  margin: 2em auto;
   border-radius: 4px;
   background-color: transparent;
   font-family: Open Sans;

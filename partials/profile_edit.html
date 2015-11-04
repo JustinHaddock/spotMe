@@ -1,0 +1,33 @@
+<!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+
+<div flow-init flow-file-added="profile.handleFile( $file, $event, $flow )">
+  <img flow-img="$flow.files[0]" style="width:150px;height:150px;border-radius:100%;display:block;margin:auto;"/>
+  <span align="center" flow-btn style="border:2px solid black; padding:4px;">Change Profile Picture</span>
+</div>
+<!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+<p>
+  Name:
+  <input type="text" class="edit" ng-model="profile.profileInfo.name"> </br>
+  Age:
+  <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="edit" ng-model="profile.profileInfo.age"> </br>
+</p>
+Gender:
+<select class="edit" ng-model="profile.profileInfo.gender" ng-class="profile.classes.selectInput.gender" style="font-family: monospace; font-size: 1.5em; margin-right:-10px;">
+  <option value="♀">♀</option>
+  <option value="♂">♂</option>
+</select>
+</br>
+Workout Style:
+<select class="edit" ng-model="profile.profileInfo.lifting" ng-class="profile.classes.selectInput.lift">
+  <option value="bodybuilding">Bodybuilder</option>
+  <option value="powerlifting">Powerlifter</option>
+  <option value="xfit">Crossfitter</option>
+  <option value="sport">Sport</option>
+  <option value="run">Runner</option>
+  <option value="oly">Olympic Lifter</option>
+  <option value="newbie">Beginner</option>
+  <option value="weight">Weight Loss</option>
+</select>
+
+
+<button ng-click="profile.save() && closeThisDialog(0)">Save</button>

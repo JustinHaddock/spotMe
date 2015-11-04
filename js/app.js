@@ -4,6 +4,8 @@ var spotMe = angular.module('spotMe', [
   'profileControllers',
   'profileFactory',
   'directives',
+  'cloudinary',
+  'flow',
   'firebase'
 ])
 
