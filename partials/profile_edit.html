@@ -1,7 +1,9 @@
 <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
 
 <div flow-init flow-file-added="profile.handleFile( $file, $event, $flow )">
-  <img flow-img="$flow.files[0]" style="width:150px;height:150px;border-radius:100%;display:block;margin:auto;"/>
+  <cl-image public-id="profile.profileInfo.picId" class="thumbnail inline">
+    <cl-transformation height="150" width="150" crop="fill" gravity="north" effect="sepia" radius="20"/>
+  </cl-image>
   <span align="center" flow-btn style="border:2px solid black; padding:4px;">Change Profile Picture</span>
 </div>
 <!-- ------------------------------------------------------------------------------------------------------------------------------ -->

@@ -5,6 +5,7 @@ var spotMe = angular.module('spotMe', [
   'profileFactory',
   'directives',
   'cloudinary',
+  'ngFileUpload',
   'flow',
   'firebase'
 ])

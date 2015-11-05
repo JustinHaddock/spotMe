@@ -8,12 +8,12 @@ var concatCss    = require('gulp-concat-css');
 
 var paths = {
   src: {
-    js: ['js/**/*', 'node_modules/ng-file-upload/dist/ng-file-upload.js', 'lib/**/*'],
+    js: ['js/**/*', 'lib/**/*'],
     dialog: ['node_modules/ng-dialog/**/*'],
     scss: ['css/*.scss'],
     index: 'index.html',
     partials: 'partials/**/*',
-    assets: ['assets/**/*', "node_modules/angular/angular.js", 'node_modules/firebase/lib/firebase-web.js', 'node_modules/angularfire/dist/angularfire.js']
+    assets: ['assets/**/*', "node_modules/angular/angular.js", 'node_modules/ng-file-upload/dist/ng-file-upload.js', 'node_modules/ng-file-upload/dist/ng-file-upload-shim.js', 'node_modules/firebase/lib/firebase-web.js', 'node_modules/angularfire/dist/angularfire.js']
   },
   dest: {
     dialog: 'app/assets/ng-dialog',
