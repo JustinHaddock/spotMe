@@ -3,6 +3,7 @@ var spotMe = angular.module('spotMe', [
   'userControllers',
   'profileControllers',
   'profileFactory',
+  'cloudFactory',
   'directives',
   'cloudinary',
   'ngFileUpload',

@@ -30,14 +30,10 @@ userControllers.controller("userManagement", ['$scope', 'ngDialog', '$location',
       if (error) {
         console.log("Login Failed!", error);
         this.emessage = error.message;
-        console.log(this.emessage);
         $scope.$apply();
       } else {
-        console.log("logging in");
         profileFactory.uid = authData.uid;
-        console.log(profileFactory);
         $state.go('profile');
-        console.log($state.go('profile'));
       }
     }.bind(this));
   }

@@ -53,7 +53,7 @@ profileControllers.controller("profileController", ['$scope', '$state', 'profile
 }]);
 
 
-profileControllers.controller("editController", ['$scope', '$state', '$firebaseArray', 'profileFactory', 'ngDialog', 'Upload', function($scope, $state, $firebaseArray, profileFactory, ngDialog, Upload) {
+profileControllers.controller("editController", ['$scope', '$state', '$firebaseArray', 'profileFactory', 'ngDialog', 'cloudFactory', function($scope, $state, $firebaseArray, profileFactory, ngDialog, cloudFactory) {
   profC = this;
   profC.picFile = "";
 
@@ -69,32 +69,16 @@ profileControllers.controller("editController", ['$scope', '$state', '$firebaseA
   profC.handleFile = function($file, $event, $flow) {
     $flow.files = [];
     profC.picFile = $file;
-    console.log(profC.picFile);
 
     if ($flow.files.length) {
       event.preventDefault();
     }
   }
   profC.save = function() {
-    this.continue = true;
-    if (profC.picFile.size > 5000000) {
-      emessage = "Profile picture too big! Please use photos that are less than 5mb";
-      this.continue = false;
-    }
-    console.log(profC.picFile);
-    if (this.continue) {
-      Upload.upload({
-        url: "https://api.cloudinary.com/v1_1/spot-me/upload",
-        data: {
-          file: profC.picFile.file,
-          upload_preset: 'cf0lswed',
-          api_key: '622124564534639',
-          timestamp: Date.now(),
-          public_id: profileFactory.uid
-        }
-      }).success(function(data, status, headers, config) {
-        console.log("working");
+    cloudFactory.upload(profC.picFile)
+      .success(function(data, status, headers, config) {
         profC.profileInfo.picId = data.public_id;
+        // save other data
         var members = $firebaseArray(ref.child('members'));
         members.$loaded().then(function() {
           var index = members.$indexFor(profileFactory.uid);
@@ -102,9 +86,9 @@ profileControllers.controller("editController", ['$scope', '$state', '$firebaseA
           members.$save(index);
         });
       }).error(function(data, status, headers, config) {
-        profC.picFile.result = data;
+        pfile.result = data;
+        return ""
       });
-    }
     $scope.closeThisDialog(0);
   }
 }]);
