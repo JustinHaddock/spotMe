@@ -40,6 +40,7 @@ profileFactory.factory("profileFactory", ['$q', '$firebaseArray', function($q, $
       proff.thisUser = data[index];
     })
   }
+  proff.init();
 
   return proff;
 }]);

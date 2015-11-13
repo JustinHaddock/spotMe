@@ -39,13 +39,6 @@ profileControllers.controller("profileController", ['$scope', '$state', 'profile
     })
   };
 
-  profC.getGenderSymbol = function() {
-    if (profC.profileInfo.gender == "male") {
-      return '♂';
-    }
-    return '♀';
-  }
-
 
   return profC;
 }]);
@@ -76,12 +69,15 @@ profileControllers.controller("editController", ['$scope', '$state', '$firebaseA
   }
   profC.save = function() {
     if (profC.picFile == "") {
+      console.log("nothing here mate");
       var members = $firebaseArray(ref.child('members'));
       members.$loaded().then(function() {
         var index = members.$indexFor(profileFactory.uid);
         members[index] = profC.profileInfo;
         members.$save(index);
       });
+      profileFactory.init();
+
     } else {
       cloudFactory.upload(profC.picFile)
         .then(function(data, status, headers, config) {

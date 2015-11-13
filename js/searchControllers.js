@@ -3,6 +3,10 @@ var ref = new Firebase("https://spotmee.firebaseio.com");
 
 searchControllers.controller("searchController", ['$scope', 'profileFactory', '$state', '$timeout', function($scope, profileFactory, $state, $timeout) {
   var search = this;
+  search.query = {
+    gender: "♂",
+    lifting: "bodybuilding"
+  };
   search.allUsers = [];
   search.usersReady = false;
 

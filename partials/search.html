@@ -9,32 +9,36 @@
     <div style="display: table-cell;height: 100%">
       <div style="display: table;height: 100%; width:100%;">
         <div class="search-left">
-          <p>Search for people near you...</p>
-          <select class="search-dropdown">
-            <option value="♀">female</option>
-            <option value="♂">male</option>
-          </select>
-        </br>
-        age range:
-        <input class="search-age-input" type="number">
-        to
-        <input class="search-age-input" type="number">
-      </br>
-        <select class="search-dropdown">
-          <option value="bodybuilding">bodybuilder</option>
-          <option value="powerlifting">powerlifter</option>
-          <option value="crossfit">crossfitter</option>
-          <option value="sport">sport</option>
-          <option value="runner">runner</option>
-          <option value="olympic lifting">olympic lifter</option>
-          <option value="beginner">beginner</option>
-          <option value="weight loss">weight loss</option>
-        </select>
-      </br>
+          <div class="search-field-container">
+            <p>Search for people near you...</p>
+            <select class="search-dropdown" ng-model="search.query.gender">
+              <option value="♀">female</option>
+              <option value="♂">male</option>
+            </select>
+            </br>
+            age range:
+            <input class="search-age-input" type="number" value="18" min="18" max="100"> to
+            <input class="search-age-input" type="number" value="24" min="18" max="100">
+            </br>
+            <select class="search-dropdown" ng-model="search.query.lifting">
+              <option value="bodybuilding">bodybuilder</option>
+              <option value="powerlifting">powerlifter</option>
+              <option value="crossfit">crossfitter</option>
+              <option value="sport">sport</option>
+              <option value="runner">runner</option>
+              <option value="olympic lifting">olympic lifter</option>
+              <option value="beginner">beginner</option>
+              <option value="weight loss">weight loss</option>
+            </select>
+            </br>
+          </div>
         </div>
         <div class="search-right">
-          <div ng-if="search.usersReady">
-            <member-box ng-repeat="member in search.allUsers" member="member"></member-box>
+          <div class="member-card-container">
+            <div ng-if="search.usersReady">
+              <member-box ng-repeat="member in search.allUsers" member="member"></member-box>
+              <!-- <member-box ng-repeat="member in search.allUsers | search.gender" member="member"></member-box> -->
+            </div>
           </div>
         </div>
       </div>

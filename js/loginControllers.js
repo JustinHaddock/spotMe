@@ -67,13 +67,13 @@ userControllers.controller("createController", ['$scope', '$state', 'profileFact
       create.emessage = "email not long enough to be real";
       passes = false;
     }
-    if (passes) {
-      lastOfEmail = create.email.substr(create.email.length - 7)
-      if (passes && lastOfEmail != "rit.edu") {
-        create.emessage = "please use RIT email";
-        passes = false;
-      }
-    }
+    // if (passes) {
+    //   lastOfEmail = create.email.substr(create.email.length - 7)
+    //   if (passes && lastOfEmail != "rit.edu") {
+    //     create.emessage = "please use RIT email";
+    //     passes = false;
+    //   }
+    // }
     if (passes) {
       create.addUser(create.email, create.pass);
     }
@@ -88,6 +88,7 @@ userControllers.controller("createController", ['$scope', '$state', 'profileFact
         create.emessage = "Entered email is invalid";
         $scope.$apply();
       } else {
+        
         $scope.closeThisDialog(0);
         var uid = userData.uid;
         profileFactory.uid = userData.uid;

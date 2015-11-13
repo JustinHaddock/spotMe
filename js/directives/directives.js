@@ -7,6 +7,7 @@ directives.directive('nav', ['profileFactory', '$state', function(profileFactory
 
     var vm = this;
     vm.profileInfo = '';
+    vm.displayName = '';
 
     vm.getFirstName = function(name) {
       if (name.indexOf(' ') != -1) {
@@ -16,17 +17,20 @@ directives.directive('nav', ['profileFactory', '$state', function(profileFactory
       return name;
     }
 
-    if (profileFactory.hasUsersReady()) {
-      var index = profileFactory.users.$indexFor(profileFactory.uid);
-      $timeout(vm.profileInfo = profileFactory.users[index]);
-      vm.profileInfo.name = vm.getFirstName(vm.profileInfo.name)
-    } else {
-      profileFactory.getUsers().then(function(data) {
-        var index = data.$indexFor(profileFactory.uid);
-        $timeout(vm.profileInfo = data[index]);
-        vm.profileInfo.name = vm.getFirstName(vm.profileInfo.name)
-      })
+    vm.init = function() {
+      if (profileFactory.hasUsersReady()) {
+        console.log(profileFactory.uid);
+        $timeout(vm.profileInfo = profileFactory.thisUser);
+        vm.displayName = vm.getFirstName(vm.profileInfo.name)
+      } else {
+        profileFactory.getUsers().then(function(data) {
+          var index = data.$indexFor(profileFactory.uid);
+          $timeout(vm.profileInfo = data[index]);
+          vm.displayName = vm.getFirstName(vm.profileInfo.name)
+        })
+      }
     }
+    vm.init();
   }
 
 
