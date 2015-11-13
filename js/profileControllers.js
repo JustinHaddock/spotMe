@@ -1,8 +1,6 @@
 var profileControllers = angular.module('profileControllers', ['ngDialog', 'firebase']);
 var ref = new Firebase("https://spotmee.firebaseio.com");
 
-
-
 profileControllers.controller("profileController", ['$scope', '$state', 'profileFactory', '$firebaseArray', 'ngDialog', function($scope, $state, profileFactory, $firebaseArray, ngDialog) {
   var profC = this;
   if (profileFactory.uid == null) {
@@ -56,6 +54,7 @@ profileControllers.controller("profileController", ['$scope', '$state', 'profile
 profileControllers.controller("editController", ['$scope', '$state', '$firebaseArray', 'profileFactory', 'ngDialog', 'cloudFactory', function($scope, $state, $firebaseArray, profileFactory, ngDialog, cloudFactory) {
   profC = this;
   profC.picFile = "";
+  profC.isAdded = false;
 
   if (profileFactory.hasUsersReady()) {
     var index = profileFactory.users.$indexFor(profileFactory.uid);
@@ -73,22 +72,33 @@ profileControllers.controller("editController", ['$scope', '$state', '$firebaseA
     if ($flow.files.length) {
       event.preventDefault();
     }
+    profC.isAdded = true;
   }
   profC.save = function() {
-    cloudFactory.upload(profC.picFile)
-      .success(function(data, status, headers, config) {
-        profC.profileInfo.picId = data.public_id;
-        // save other data
-        var members = $firebaseArray(ref.child('members'));
-        members.$loaded().then(function() {
-          var index = members.$indexFor(profileFactory.uid);
-          members[index] = profC.profileInfo;
-          members.$save(index);
-        });
-      }).error(function(data, status, headers, config) {
-        pfile.result = data;
-        return ""
+    if (profC.picFile == "") {
+      var members = $firebaseArray(ref.child('members'));
+      members.$loaded().then(function() {
+        var index = members.$indexFor(profileFactory.uid);
+        members[index] = profC.profileInfo;
+        members.$save(index);
       });
+    } else {
+      cloudFactory.upload(profC.picFile)
+        .then(function(data, status, headers, config) {
+          console.log(data);
+          profC.profileInfo.picUrl = data.data.secure_url;
+          profC.profileInfo.picId = data.data.public_id;
+          // save other data
+          var members = $firebaseArray(ref.child('members'));
+          members.$loaded().then(function() {
+            var index = members.$indexFor(profileFactory.uid);
+            members[index] = profC.profileInfo;
+            members.$save(index);
+          });
+        }).catch(function(data, status, headers, config) {
+          console.log(data);
+        });
+    }
     $scope.closeThisDialog(0);
   }
 }]);

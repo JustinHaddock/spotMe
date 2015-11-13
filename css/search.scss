@@ -1,0 +1,73 @@
+@import 'colors';
+.search-container {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+.search-left {
+  display: table-cell;
+  height: 100%;
+  width: 50%;
+  color: $baby-blue;
+  background-color: $dark-grey;
+  p {
+    margin: 0;
+  }
+}
+.search-right {
+  display: table-cell;
+  height: 100%;
+  background-color: $dark-grey;
+  text-align: left;
+}
+.individual-container {
+  padding-bottom: 3em;
+  padding-top: 1.5em;
+  color: black;
+  width: 200px;
+  text-align: center;
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: white;
+  margin: 2em;
+  p {
+    margin: 0;
+  }
+}
+.search-pic-holder {
+  margin: auto;
+  margin-top: 1.5em;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+.search-member-denominator {
+  color: grey;
+  font-style: italic;
+}
+.profile-nav-text {
+  text-decoration: none;
+  color: $baby-blue;
+  margin-bottom: 2em;
+}
+.search-age-input {
+  width: 2em;
+  background-color: black;
+  border: 0;
+  border-radius: 5px;
+  padding: 4px;
+}
+.search-dropdown {
+  color: $baby-blue;
+  -webkit-appearance: none;
+  font-size: 1em;
+  background-color: transparent;
+  border: 1px solid;
+  border-radius: 2px;
+  padding: 5px;
+}

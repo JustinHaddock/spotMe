@@ -1,7 +1,7 @@
 <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
 
 <div flow-init flow-file-added="profile.handleFile( $file, $event, $flow )">
-  <img flow-img="$flow.files[0]" style="width:150px;height:150px;border-radius:100%;display:block;margin:auto;"/>
+  <img ng-show="profile.isAdded" flow-img="$flow.files[0]" style="width:150px;height:150px;border-radius:100%;display:block;margin:auto;"/>
   <span align="center" flow-btn style="border:2px solid black; padding:4px;">Change Profile Picture</span>
 </div>
 <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
@@ -21,12 +21,12 @@ Workout Style:
 <select class="edit" ng-model="profile.profileInfo.lifting" ng-class="profile.classes.selectInput.lift">
   <option value="bodybuilding">Bodybuilder</option>
   <option value="powerlifting">Powerlifter</option>
-  <option value="xfit">Crossfitter</option>
+  <option value="crossfit">Crossfitter</option>
   <option value="sport">Sport</option>
-  <option value="run">Runner</option>
-  <option value="oly">Olympic Lifter</option>
-  <option value="newbie">Beginner</option>
-  <option value="weight">Weight Loss</option>
+  <option value="runner">Runner</option>
+  <option value="olympic lifting">Olympic Lifter</option>
+  <option value="beginner">Beginner</option>
+  <option value="weight loss">Weight Loss</option>
 </select>
 
 

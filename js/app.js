@@ -4,6 +4,7 @@ var spotMe = angular.module('spotMe', [
   'profileControllers',
   'profileFactory',
   'cloudFactory',
+  'searchControllers', 
   'directives',
   'cloudinary',
   'ngFileUpload',
@@ -22,6 +23,11 @@ spotMe.config(function($stateProvider, $urlRouterProvider) {
       url: "/login",
       controller: 'userManagement as login',
       templateUrl: 'partials/home.html'
+    })
+    .state('search', {
+      url: "/search",
+      controller: 'searchController as search',
+      templateUrl: 'partials/search.html'
     })
     .state('profile', {
       url: "/profile",

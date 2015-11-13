@@ -11,7 +11,9 @@
         <div class="profile-left">
           <button ng-click="profile.editInfo()">edit</button>
           <div class="profile-info-main">
-            <cl-image public-id={{profile.profileInfo.picId}}></cl-image>
+            <div class="profile-pic-holder" style="background-image:url('{{profile.profileInfo.picUrl}}');">
+              <!-- <img src="{{profile.profileInfo.picUrl}}"> -->
+            </div>
             <p>
               {{profile.profileInfo.name}}, {{profile.profileInfo.age}}
             </p>

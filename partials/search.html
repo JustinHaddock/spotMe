@@ -1,0 +1,43 @@
+<div class="search-container">
+
+  <div style="display: table-row;">
+    <div style="display: table-cell;">
+      <nav></nav>
+    </div>
+  </div>
+  <div style="display: table-row;">
+    <div style="display: table-cell;height: 100%">
+      <div style="display: table;height: 100%; width:100%;">
+        <div class="search-left">
+          <p>Search for people near you...</p>
+          <select class="search-dropdown">
+            <option value="♀">female</option>
+            <option value="♂">male</option>
+          </select>
+        </br>
+        age range:
+        <input class="search-age-input" type="number">
+        to
+        <input class="search-age-input" type="number">
+      </br>
+        <select class="search-dropdown">
+          <option value="bodybuilding">bodybuilder</option>
+          <option value="powerlifting">powerlifter</option>
+          <option value="crossfit">crossfitter</option>
+          <option value="sport">sport</option>
+          <option value="runner">runner</option>
+          <option value="olympic lifting">olympic lifter</option>
+          <option value="beginner">beginner</option>
+          <option value="weight loss">weight loss</option>
+        </select>
+      </br>
+        </div>
+        <div class="search-right">
+          <div ng-if="search.usersReady">
+            <member-box ng-repeat="member in search.allUsers" member="member"></member-box>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

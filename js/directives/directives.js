@@ -1,13 +1,13 @@
 var directives = angular.module('directives', []);
 
 
-directives.directive('nav', ['profileFactory', function(profileFactory) {
+directives.directive('nav', ['profileFactory', '$state', function(profileFactory, $state) {
 
   Controller = function($timeout) {
-    var vm = this;
-    vm.profileInfo
 
-    // if (vm.profileInfo.name = )
+    var vm = this;
+    vm.profileInfo = '';
+
     vm.getFirstName = function(name) {
       if (name.indexOf(' ') != -1) {
         var split = name.split(" ");
@@ -15,6 +15,7 @@ directives.directive('nav', ['profileFactory', function(profileFactory) {
       }
       return name;
     }
+
     if (profileFactory.hasUsersReady()) {
       var index = profileFactory.users.$indexFor(profileFactory.uid);
       $timeout(vm.profileInfo = profileFactory.users[index]);
@@ -37,3 +38,15 @@ directives.directive('nav', ['profileFactory', function(profileFactory) {
     templateUrl: "partials/_nav.html"
   }
 }]);
+
+
+
+directives.directive('memberBox', function() {
+  return {
+    restrict: "E",
+    scope: {
+      member: '=member'
+    },
+    templateUrl: "partials/_memberBox.html"
+  }
+});
