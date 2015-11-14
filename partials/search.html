@@ -12,15 +12,17 @@
           <div class="search-field-container">
             <p>Search for people near you...</p>
             <select class="search-dropdown" ng-model="search.query.gender">
+              <option value="">any</option>
               <option value="♀">female</option>
               <option value="♂">male</option>
             </select>
             </br>
             age range:
-            <input class="search-age-input" ng-model="search.min" type="number" min="18" max="search.max"> to
-            <input class="search-age-input" ng-model="search.max" type="number" min="search.min" max="99">
+            <input class="search-age-input" ng-model="search.min" type="number" value="18" min="18" max="search.max"> to
+            <input class="search-age-input" ng-model="search.max" type="number" value="99" min="search.min" max="99">
             </br>
             <select class="search-dropdown" ng-model="search.query.lifting">
+              <option value="">any</option>
               <option value="bodybuilding">bodybuilder</option>
               <option value="powerlifting">powerlifter</option>
               <option value="crossfit">crossfitter</option>

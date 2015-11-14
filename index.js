@@ -433,7 +433,10 @@ profileControllers.controller("profileController", ['$scope', '$state', 'profile
     readonly: true
   };
 
-
+  profC.logout = function(){
+    profileFactory.uid = "";
+    ref.unauth();
+  }
   profC.editInfo = function() {
     $scope.profileInfo = profC.profileInfo;
     ngDialog.openConfirm({
