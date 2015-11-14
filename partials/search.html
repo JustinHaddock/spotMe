@@ -36,8 +36,8 @@
         <div class="search-right">
           <div class="member-card-container">
             <div ng-if="search.usersReady">
-              <member-box ng-repeat="member in search.allUsers" member="member"></member-box>
-              <!-- <member-box ng-repeat="member in search.allUsers | filter: search.query" member="member"></member-box> -->
+              <!-- <member-box ng-repeat="member in search.allUsers" member="member"></member-box> -->
+              <member-box ng-repeat="member in search.allUsers | filter: search.query" member="member"></member-box>
             </div>
           </div>
         </div>
