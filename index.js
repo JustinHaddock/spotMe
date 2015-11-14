@@ -592,7 +592,7 @@ directives.directive('nav', ['profileFactory', '$state', function(profileFactory
     controller: Controller,
     controllerAs: 'nav',
     scope: true,
-    templateUrl: "partials/_nav.html"
+    templateUrl: "partials/nav.html"
   }
 }]);
 
@@ -604,7 +604,7 @@ directives.directive('memberBox', function() {
     scope: {
       member: '=member'
     },
-    templateUrl: "partials/_memberBox.html"
+    templateUrl: "partials/memberBox.html"
   }
 });
 
