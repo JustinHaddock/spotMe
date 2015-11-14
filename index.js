@@ -551,6 +551,63 @@ searchControllers.controller("searchController", ['$scope', 'profileFactory', '$
   return search;
 }]);
 
+var directives = angular.module('directives', []);
+
+
+directives.directive('nav', ['profileFactory', '$state', function(profileFactory, $state) {
+
+  Controller = function($timeout) {
+
+    var vm = this;
+    vm.profileInfo = '';
+    vm.displayName = '';
+
+    vm.getFirstName = function(name) {
+      if (name.indexOf(' ') != -1) {
+        var split = name.split(" ");
+        return split[0]
+      }
+      return name;
+    }
+
+    vm.init = function() {
+      if (profileFactory.hasUsersReady()) {
+        console.log(profileFactory.uid);
+        $timeout(vm.profileInfo = profileFactory.thisUser);
+        vm.displayName = vm.getFirstName(vm.profileInfo.name)
+      } else {
+        profileFactory.getUsers().then(function(data) {
+          var index = data.$indexFor(profileFactory.uid);
+          $timeout(vm.profileInfo = data[index]);
+          vm.displayName = vm.getFirstName(vm.profileInfo.name)
+        })
+      }
+    }
+    vm.init();
+  }
+
+
+  return {
+    restrict: "E",
+    controller: Controller,
+    controllerAs: 'nav',
+    scope: true,
+    templateUrl: "partials/nav.html"
+  }
+}]);
+
+
+
+directives.directive('memberBox', function() {
+  return {
+    restrict: "E",
+    scope: {
+      member: '=member'
+    },
+    templateUrl: "partials/memberBox.html"
+  }
+});
+
 var cloudFactory = angular.module('cloudFactory', []);
 var ref = new Firebase("https://spotmee.firebaseio.com");
 
@@ -656,63 +713,6 @@ profileFactory.factory("profileFactory", ['$q', '$firebaseArray', function($q, $
 
   return proff;
 }]);
-
-var directives = angular.module('directives', []);
-
-
-directives.directive('nav', ['profileFactory', '$state', function(profileFactory, $state) {
-
-  Controller = function($timeout) {
-
-    var vm = this;
-    vm.profileInfo = '';
-    vm.displayName = '';
-
-    vm.getFirstName = function(name) {
-      if (name.indexOf(' ') != -1) {
-        var split = name.split(" ");
-        return split[0]
-      }
-      return name;
-    }
-
-    vm.init = function() {
-      if (profileFactory.hasUsersReady()) {
-        console.log(profileFactory.uid);
-        $timeout(vm.profileInfo = profileFactory.thisUser);
-        vm.displayName = vm.getFirstName(vm.profileInfo.name)
-      } else {
-        profileFactory.getUsers().then(function(data) {
-          var index = data.$indexFor(profileFactory.uid);
-          $timeout(vm.profileInfo = data[index]);
-          vm.displayName = vm.getFirstName(vm.profileInfo.name)
-        })
-      }
-    }
-    vm.init();
-  }
-
-
-  return {
-    restrict: "E",
-    controller: Controller,
-    controllerAs: 'nav',
-    scope: true,
-    templateUrl: "partials/nav.html"
-  }
-}]);
-
-
-
-directives.directive('memberBox', function() {
-  return {
-    restrict: "E",
-    scope: {
-      member: '=member'
-    },
-    templateUrl: "partials/memberBox.html"
-  }
-});
 
 /**
  * State-based routing for AngularJS
