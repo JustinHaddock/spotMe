@@ -17,8 +17,8 @@
             </select>
             </br>
             age range:
-            <input class="search-age-input" type="number" value="18" min="18" max="100"> to
-            <input class="search-age-input" type="number" value="24" min="18" max="100">
+            <input class="search-age-input" ng-model="search.min" type="number" value="18" min="18" max="search.max"> to
+            <input class="search-age-input" ng-model="search.max" type="number" value="99" min="search.min" max="99">
             </br>
             <select class="search-dropdown" ng-model="search.query.lifting">
               <option value="bodybuilding">bodybuilder</option>
@@ -37,7 +37,7 @@
           <div class="member-card-container">
             <div ng-if="search.usersReady">
               <member-box ng-repeat="member in search.allUsers" member="member"></member-box>
-              <!-- <member-box ng-repeat="member in search.allUsers | search.gender" member="member"></member-box> -->
+              <!-- <member-box ng-repeat="member in search.allUsers | filter: search.query" member="member"></member-box> -->
             </div>
           </div>
         </div>

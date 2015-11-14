@@ -1,6 +1,6 @@
 <div class="login-container">
   <form class="login">
-    <h1 class="title"> spot.me </h1>
+    <h1 class="title"> spot me </h1>
     <div class="input">
       <div ng-show="login.emessage != ''" style="background-color:white;">
         <p id="error-message">{{login.emessage}}</p>
@@ -10,7 +10,6 @@
     <div class="input">
       <input type="password" placeholder="password" ng-model="login.pass" required />
     </div>
-    <!-- <button style="float:right" ng-click="login.create()">create account</button> -->
     <button class="login login-button" ng-click="login.login()">sign in</button>
     <span id="forgot-pass">forgot password?</span>
     <p>Don't have an account yet?</p>

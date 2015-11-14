@@ -9,6 +9,8 @@ searchControllers.controller("searchController", ['$scope', 'profileFactory', '$
   };
   search.allUsers = [];
   search.usersReady = false;
+  search.min = 18;
+  search.max = 99;
 
   ref.onAuth(function(authData) {
     if (authData) {
