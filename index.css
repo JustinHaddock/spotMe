@@ -250,6 +250,11 @@ body {
   text-align: left;
 }
 
+.profile-right h3 {
+  margin: 4em;
+  color: #41a3db;
+}
+
 .profile-nav {
   color: #41a3db;
   text-align: center;
@@ -297,7 +302,7 @@ body {
   font-family: Open Sans;
   font-weight: bold;
   float: right;
-  padding: 5px 20px 5px 20px;
+  padding: 5px 20px;
   border: solid #41a3db 2px;
   text-decoration: none;
 }
