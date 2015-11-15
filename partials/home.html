@@ -11,6 +11,30 @@
       <input type="password" placeholder="password" ng-model="login.pass" required />
     </div>
     <button class="login login-button" ng-click="login.login()">sign in</button>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: '136492886711499',
+          xfbml: true,
+          version: 'v2.5'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+          return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <button class="login login-button" ng-click="login.loginFacebook()">Facebook Login</button>
+
+    <div class="fb-like" data-share="true" data-width="450" data-show-faces="true">
+    </div>
     <span id="forgot-pass">forgot password?</span>
     <p>Don't have an account yet?</p>
     <button class="login new-button" ng-click="login.create()">create account</button>

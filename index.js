@@ -321,7 +321,19 @@ userControllers.controller("userManagement", ['$scope', 'ngDialog', '$location',
       $state.go('login');
     }
   });
-
+  this.loginFacebook = function() {
+    ref.authWithOAuthPopup("facebook", function(error, authData) {
+      if (error) {
+        console.log("Login Failed!", error);
+      } else {
+        console.log("Authenticated successfully with payload:", authData);
+        console.log(authData.facebook.displayName);
+        ref.child('members').child(authData.uid).set({
+          name: authData.facebook.displayName,
+        })
+      }
+    });
+  }
   this.login = function() {
     ref.authWithPassword({
       email: this.email,
@@ -389,7 +401,7 @@ userControllers.controller("createController", ['$scope', '$state', 'profileFact
         create.emessage = "Entered email is invalid";
         $scope.$apply();
       } else {
-        
+
         $scope.closeThisDialog(0);
         var uid = userData.uid;
         profileFactory.uid = userData.uid;
@@ -644,8 +656,10 @@ cloudFactory.factory("cloudFactory", ['$firebaseArray', 'Upload', 'profileFactor
   }
 
   cc.upload = function(pfile) {
-    var oldPicId = profileFactory.findUser(profileFactory.uid).picId;
-    cc.delete(oldPicId);
+    if (profileFactory.findUser(profileFactory.uid)) {
+      var oldPicId = profileFactory.findUser(profileFactory.uid).picId;
+      cc.delete(oldPicId);
+    }
     var publicId = "";
     cc.continue = true;
     if (pfile.size > 5000000) {
