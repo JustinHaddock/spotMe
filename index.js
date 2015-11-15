@@ -9,7 +9,8 @@ var spotMe = angular.module('spotMe', [
   'cloudinary',
   'ngFileUpload',
   'flow',
-  'firebase'
+  'firebase',
+  'geolocation'
 ])
 
 var ref = new Firebase("https://spotmee.firebaseio.com");
@@ -321,6 +322,7 @@ userControllers.controller("userManagement", ['$scope', 'ngDialog', '$location',
       $state.go('login');
     }
   });
+
   this.loginFacebook = function() {
     ref.authWithOAuthPopup("facebook", function(error, authData) {
       if (error) {
@@ -334,6 +336,7 @@ userControllers.controller("userManagement", ['$scope', 'ngDialog', '$location',
       }
     });
   }
+
   this.login = function() {
     ref.authWithPassword({
       email: this.email,
@@ -418,11 +421,12 @@ userControllers.controller("createController", ['$scope', '$state', 'profileFact
 var profileControllers = angular.module('profileControllers', ['ngDialog', 'firebase']);
 var ref = new Firebase("https://spotmee.firebaseio.com");
 
-profileControllers.controller("profileController", ['$scope', '$state', 'profileFactory', '$firebaseArray', 'ngDialog', function($scope, $state, profileFactory, $firebaseArray, ngDialog) {
+profileControllers.controller("profileController", ['$scope', '$state', 'profileFactory', '$firebaseArray', 'ngDialog', 'geolocation', function($scope, $state, profileFactory, $firebaseArray, ngDialog, geolocation) {
   var profC = this;
   if (profileFactory.uid == null) {
     $state.go('login');
   }
+
   if (profileFactory.hasUsersReady()) {
     var index = profileFactory.users.$indexFor(profileFactory.uid);
     profC.profileInfo = profileFactory.users[index];
@@ -445,10 +449,12 @@ profileControllers.controller("profileController", ['$scope', '$state', 'profile
     readonly: true
   };
 
-  profC.logout = function(){
+  profC.logout = function() {
     profileFactory.uid = "";
     ref.unauth();
   }
+
+
   profC.editInfo = function() {
     $scope.profileInfo = profC.profileInfo;
     ngDialog.openConfirm({
@@ -707,7 +713,7 @@ cloudFactory.factory("cloudFactory", ['$firebaseArray', 'Upload', 'profileFactor
 var profileFactory = angular.module('profileFactory', []);
 var ref = new Firebase("https://spotmee.firebaseio.com");
 
-profileFactory.factory("profileFactory", ['$q', '$firebaseArray', function($q, $firebaseArray) {
+profileFactory.factory("profileFactory", ['$q', '$firebaseArray', 'geolocation', function($q, $firebaseArray, geolocation) {
   var proff = {};
   proff.uid = null;
   proff.users = [];
@@ -718,7 +724,7 @@ profileFactory.factory("profileFactory", ['$q', '$firebaseArray', function($q, $
     var deferred = $q.defer();
     var allData = $firebaseArray(ref.child('members'))
     allData.$loaded().then(function() {
-      console.log("We have this many users -> ", allData.length);
+        console.log("We have this many users -> ", allData.length);
         deferred.resolve(allData)
       })
       .catch(function(error) {
@@ -746,6 +752,20 @@ profileFactory.factory("profileFactory", ['$q', '$firebaseArray', function($q, $
       var index = data.$indexFor(proff.uid);
       proff.thisUser = data[index];
     })
+    var coords = {};
+    geolocation.getLocation().then(function(data) {
+      coords = {
+        lat: data.coords.latitude,
+        long: data.coords.longitude
+      };
+      proff.thisUser.loc = coords;
+      var members = $firebaseArray(ref.child('members'));
+      members.$loaded().then(function() {
+        var index = members.$indexFor(proff.uid);
+        members[index] = proff.thisUser;
+        members.$save(index);
+      });
+    });
   }
   proff.init();
 
