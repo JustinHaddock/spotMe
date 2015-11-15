@@ -255,6 +255,11 @@ body {
   color: #41a3db;
 }
 
+.profile-right h1 {
+  color: #f5f5f5;
+  text-align: center;
+}
+
 .profile-nav {
   color: #41a3db;
   text-align: center;
