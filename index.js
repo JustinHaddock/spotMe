@@ -623,6 +623,26 @@ directives.directive('memberBox', function() {
   }
 });
 
+
+directives.directive('googleLocation', function() {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      location: '='
+    },
+    template: '<input id="google_places_ac" name="google_places_ac" type="text" class="input-block-level"/>',
+    link: function($scope, elm, attrs) {
+      var autocomplete = new google.maps.places.Autocomplete($("#google_places_ac")[0], {});
+      google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        var place = autocomplete.getPlace();
+        $scope.location = place.geometry.location.lat() + ',' + place.geometry.location.lng();
+        $scope.$apply();
+      });
+    }
+  }
+});
+
 var cloudFactory = angular.module('cloudFactory', []);
 var ref = new Firebase("https://spotmee.firebaseio.com");
 
@@ -698,6 +718,7 @@ profileFactory.factory("profileFactory", ['$q', '$firebaseArray', function($q, $
     var deferred = $q.defer();
     var allData = $firebaseArray(ref.child('members'))
     allData.$loaded().then(function() {
+      console.log("We have this many users -> ", allData.length);
         deferred.resolve(allData)
       })
       .catch(function(error) {

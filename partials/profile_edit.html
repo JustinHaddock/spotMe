@@ -2,7 +2,7 @@
 
 <div flow-init flow-file-added="profile.handleFile( $file, $event, $flow )">
   <img ng-show="profile.isAdded" flow-img="$flow.files[0]" style="width:150px;height:150px;border-radius:100%;display:block;margin:auto;"/>
-  <span align="center" flow-btn style="border:2px solid black; padding:4px;">Change Profile Picture</span>
+  <button align="center" flow-btn class="prof-pic-button">Change Profile Picture</button>
 </div>
 <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
 <p>
@@ -29,5 +29,6 @@ Workout Style:
   <option value="weight loss">Weight Loss</option>
 </select>
 
+<googleLocation></googleLocation>
 
 <button ng-click="profile.save() && closeThisDialog(0)">Save</button>
