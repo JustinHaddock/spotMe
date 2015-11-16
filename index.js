@@ -495,7 +495,6 @@ profileControllers.controller("editController", ['$scope', '$state', '$firebaseA
   }
   profC.save = function() {
     if (profC.picFile == "") {
-      console.log("nothing here mate");
       var members = $firebaseArray(ref.child('members'));
       members.$loaded().then(function() {
         var index = members.$indexFor(profileFactory.uid);
@@ -507,7 +506,6 @@ profileControllers.controller("editController", ['$scope', '$state', '$firebaseA
     } else {
       cloudFactory.upload(profC.picFile)
         .then(function(data, status, headers, config) {
-          console.log(data);
           profC.profileInfo.picUrl = data.data.secure_url;
           profC.profileInfo.picId = data.data.public_id;
           // save other data
@@ -550,22 +548,52 @@ searchControllers.controller("searchController", ['$scope', 'profileFactory', '$
     }
   });
 
+  search.filter = function(miles, mems) {
+    var degrees = .0144 * miles;
+    var thisUser = profileFactory.thisUser;
+    var distances;
+    distances = {
+      lat: {
+        max: $timeout(profileFactory.thisUser.loc.lat + degrees),
+        min: $timeout(profileFactory.thisUser.loc.lat - degrees)
+      },
+      long: {
+        max: $timeout(profileFactory.thisUser.loc.long + degrees),
+        min: $timeout(profileFactory.thisUser.loc.long - degrees)
+      }
+    };
+    var retArray = [];
+    for (var i = 0; i < mems.length; i++) {
+      thisMem = mems[i];
+      if (thisMem.loc != null) {
+        var lat = thisMem.loc.lat;
+        var long = thisMem.loc.long;
+        if ((distances.lat.max > lat) && (distances.lat.min < lat)) {
+          if ((distances.long.max > long) && (distances.long.min < long)) {
+            retArray.push(thisMem);
+          }
+        }
+      }
+    }
+    return retArray;
+    // return mems;
+  };
   if (profileFactory.hasUsersReady()) {
     var index = profileFactory.users.$indexFor(profileFactory.uid);
-    search.allUsers = profileFactory.users;
+    var users = profileFactory.users;
     if (index > -1) {
-      search.allUsers.splice(index, 1);
+      users.splice(index, 1);
     }
     search.usersReady = true;
-  }
-
-  else {
+    search.allUsers = users;
+  } else {
     profileFactory.getUsers().then(function(data) {
       var index = data.$indexFor(profileFactory.uid);
-      $timeout(search.allUsers = data);
+      $timeout(users = data);
       if (index > -1) {
-        search.allUsers.splice(index, 1);
+        users.splice(index, 1);
       }
+      search.allUsers = users;
       search.usersReady = true;
     })
   }
@@ -593,7 +621,6 @@ directives.directive('nav', ['profileFactory', '$state', function(profileFactory
 
     vm.init = function() {
       if (profileFactory.hasUsersReady()) {
-        console.log(profileFactory.uid);
         $timeout(vm.profileInfo = profileFactory.thisUser);
         vm.displayName = vm.getFirstName(vm.profileInfo.name)
       } else {
@@ -759,6 +786,7 @@ profileFactory.factory("profileFactory", ['$q', '$firebaseArray', 'geolocation',
         long: data.coords.longitude
       };
       proff.thisUser.loc = coords;
+      console.log(coords);
       var members = $firebaseArray(ref.child('members'));
       members.$loaded().then(function() {
         var index = members.$indexFor(proff.uid);
